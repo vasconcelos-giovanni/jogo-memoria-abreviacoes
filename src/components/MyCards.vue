@@ -66,8 +66,8 @@ function resetNotMatched(): void {
 
   if (notMatchedLength > 0 && notMatchedLength <= MAX_TURNED_CARDS_AT_ONCE) {
     setTimeout(() => {
-      turned.value = turned.value.filter(index => matched.value.includes(index))
-      (btnToggle.value as any)?.updateMandatory()
+  turned.value = turned.value.filter(index => matched.value.includes(index));
+  (btnToggle.value as any)?.updateMandatory()
     }, 5000)
   }
 }
@@ -77,7 +77,7 @@ function win(): boolean {
 }
 
 function restart(): void {
-  turned.value = []
+  turned.value = [];
   (btnToggle.value as any)?.updateMandatory()
 }
 </script>
