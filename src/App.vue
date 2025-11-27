@@ -3,5 +3,7 @@ import MyHome from '@/pages/MyHome.vue'
 </script>
 
 <template>
-  <MyHome/>
+  <v-app>
+    <MyHome/>
+  </v-app>
 </template>

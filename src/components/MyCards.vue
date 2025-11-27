@@ -1,14 +1,83 @@
 <template>
-  <div class="col-12 d-flex justify-space-between flex-wrap pa-3" style="background-color: light-grey;">
-    <pre>{{ turned }}</pre>
-    <MyCard v-for="({ nome }, index) in data" :key="index" :text="nome" v-model="turned" />
+  <v-snackbar v-if="win()" :model-value="true" location="bottom" color="green" elevation="2">
+    Parabéns! Você encontrou todos os pares!
+  </v-snackbar>
+
+  <v-btn-toggle
+    multiple
+    tile
+    ref="btnToggle"
+    v-model="turned"
+    class="d-flex flex-wrap justify-center h-auto"
+  >
+    <template #default>
+      <v-btn
+        v-for="({ nome }, index) in randomizedData"
+        :key="index"
+        :text="turned.includes(index) ? nome : ''"
+        :disabled="matched.includes(index)"
+        class="ma-2"
+        color="blue-darken-1"
+        base-color="green-darken-1"
+        width="10rem"
+        height="5rem"
+      />
+    </template>
+  </v-btn-toggle>
+
+  <div>
+    <p>
+      <span class="font-weight-bold">Pontuação:</span> {{ score ?? 0 }}
+    </p>
+    <v-btn @click="restart" color="red-darken-4" class="ma-2" text="Reiniciar" prepend-icon="mdi-restart"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import MyCard from '@/components/MyCard.vue'
 import data from '@/data/data'
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 
-const turned = ref()
+function randomizeArrayOrders<T>(array: T[]): T[] {
+  return array
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value)
+}
+
+const randomizedData = ref(randomizeArrayOrders(data))
+const turned = ref<number[]>([])
+const matched = computed<number[]>(() => {
+  return turned.value.filter(turnedAbbreviation => turned.value.some((other, index) => randomizedData.value[other]!.id === randomizedData.value[turnedAbbreviation]!.id && index !== turned.value.indexOf(turnedAbbreviation)))
+})
+const notMatched = computed<number[]>(() => {
+  return turned.value.filter(turnedAbbreviation => !matched.value.includes(turnedAbbreviation))
+})
+const score = computed<number>(() => matched.value.length / 2 * 10)
+const MAX_TURNED_CARDS_AT_ONCE = 2
+
+const btnToggle = ref<InstanceType<typeof import('vuetify/components').VBtnToggle> | null>(null)
+
+watch(turned, () => {
+  resetNotMatched()
+})
+
+function resetNotMatched(): void {
+  const notMatchedLength = notMatched.value.length
+
+  if (notMatchedLength > 0 && notMatchedLength <= MAX_TURNED_CARDS_AT_ONCE) {
+    setTimeout(() => {
+      turned.value = turned.value.filter(index => matched.value.includes(index))
+      (btnToggle.value as any)?.updateMandatory()
+    }, 5000)
+  }
+}
+
+function win(): boolean {
+  return matched.value.length === randomizedData.value.length
+}
+
+function restart(): void {
+  turned.value = []
+  (btnToggle.value as any)?.updateMandatory()
+}
 </script>
