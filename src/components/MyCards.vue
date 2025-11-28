@@ -83,7 +83,7 @@ function resetNotMatched(): void {
 
       turned.value = turned.value.filter(index => matched.value.includes(index));
       (btnToggle.value as unknown)?.updateMandatory()
-    }, 2000)
+    }, 3000)
   }
 
 }
