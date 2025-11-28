@@ -14,14 +14,16 @@
       <v-btn
         v-for="({ nome }, index) in randomizedData"
         :key="index"
-        :text="turned.includes(index) ? nome : ''"
         :disabled="matched.includes(index)"
         class="ma-2"
         color="blue-darken-1"
         base-color="green-darken-1"
         width="10rem"
         height="5rem"
-      />
+        style="text-transform: none;"
+      >
+        <span v-html="turned.includes(index) ? nome : ''"></span>
+      </v-btn>
     </template>
   </v-btn-toggle>
 
@@ -67,7 +69,7 @@ function resetNotMatched(): void {
   if (notMatchedLength > 0 && notMatchedLength <= MAX_TURNED_CARDS_AT_ONCE) {
     setTimeout(() => {
   turned.value = turned.value.filter(index => matched.value.includes(index));
-  (btnToggle.value as any)?.updateMandatory()
+  (btnToggle.value as unknown)?.updateMandatory()
     }, 5000)
   }
 }
@@ -77,7 +79,8 @@ function win(): boolean {
 }
 
 function restart(): void {
+  randomizedData.value = randomizeArrayOrders(randomizedData.value)
   turned.value = [];
-  (btnToggle.value as any)?.updateMandatory()
+  (btnToggle.value as unknown)?.updateMandatory()
 }
 </script>

@@ -9,8 +9,9 @@
       >
         <v-list-item-content>
           <v-list-item-title>
-            <span v-if="group.nomes[0]">{{ group.nomes[0] }}</span>
-            <span v-if="group.nomes[1]"> — {{ group.nomes[1] }}</span>
+            <span v-if="group.nomes[0]" v-html="group.nomes[0]"></span>
+            <span> - </span>
+            <span v-if="group.nomes[1]" v-html="group.nomes[1]"></span>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
