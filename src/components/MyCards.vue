@@ -9,7 +9,7 @@
     ref="btnToggle"
     v-model="turned"
     class="d-flex flex-wrap justify-center h-auto"
-    :style="[{pointerEvents: cardsDisabled ? 'none !important' : 'auto'}]"
+  :style="{ pointerEvents: cardsDisabled ? 'none' : 'auto' }"
   >
     <template #default>
       <v-btn
@@ -70,10 +70,12 @@ let debounceTimer: ReturnType<typeof setTimeout> | null = null
 function resetNotMatched(): void {
   const notMatchedLength = notMatched.value.length
 
-  if (notMatchedLength > 0 && notMatchedLength <= MAX_TURNED_CARDS_AT_ONCE) {
+    if (notMatchedLength > 0 && notMatchedLength <= MAX_TURNED_CARDS_AT_ONCE) {
     if (notMatchedLength === MAX_TURNED_CARDS_AT_ONCE)
     {
-      clearTimeout(debounceTimer)
+      if (debounceTimer !== null) {
+        clearTimeout(debounceTimer)
+      }
       cardsDisabled.value = true
     }
 
@@ -82,7 +84,7 @@ function resetNotMatched(): void {
       { cardsDisabled.value = false }
 
       turned.value = turned.value.filter(index => matched.value.includes(index));
-      (btnToggle.value as unknown)?.updateMandatory()
+      (btnToggle.value as { updateMandatory?: () => void } )?.updateMandatory?.()
     }, 3000)
   }
 
@@ -95,6 +97,6 @@ function win(): boolean {
 function restart(): void {
   randomizedData.value = randomizeArrayOrders(randomizedData.value)
   turned.value = [];
-  (btnToggle.value as unknown)?.updateMandatory()
+  (btnToggle.value as { updateMandatory?: () => void } )?.updateMandatory?.()
 }
 </script>
