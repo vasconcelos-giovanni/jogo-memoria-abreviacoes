@@ -9,6 +9,7 @@
     ref="btnToggle"
     v-model="turned"
     class="d-flex flex-wrap justify-center h-auto"
+    :style="[{pointerEvents: cardsDisabled ? 'none !important' : 'auto'}]"
   >
     <template #default>
       <v-btn
@@ -63,15 +64,28 @@ watch(turned, () => {
   resetNotMatched()
 })
 
+const cardsDisabled = ref(false)
+
+let debounceTimer: ReturnType<typeof setTimeout> | null = null
 function resetNotMatched(): void {
   const notMatchedLength = notMatched.value.length
 
   if (notMatchedLength > 0 && notMatchedLength <= MAX_TURNED_CARDS_AT_ONCE) {
-    setTimeout(() => {
-  turned.value = turned.value.filter(index => matched.value.includes(index));
-  (btnToggle.value as unknown)?.updateMandatory()
-    }, 5000)
+    if (notMatchedLength === MAX_TURNED_CARDS_AT_ONCE)
+    {
+      clearTimeout(debounceTimer)
+      cardsDisabled.value = true
+    }
+
+    debounceTimer = setTimeout(() => {
+      if (cardsDisabled.value)
+      { cardsDisabled.value = false }
+
+      turned.value = turned.value.filter(index => matched.value.includes(index));
+      (btnToggle.value as unknown)?.updateMandatory()
+    }, 2000)
   }
+
 }
 
 function win(): boolean {
