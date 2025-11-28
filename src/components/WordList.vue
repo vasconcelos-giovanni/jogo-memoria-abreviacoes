@@ -1,8 +1,8 @@
 <template>
   <v-card class="mx-auto" max-width="600">
-    <v-toolbar color="primary" title="Dicionário de abreviações"></v-toolbar>
+    <v-toolbar color="#13243e" title="Dicionário de abreviações"></v-toolbar>
 
-    <v-list two-line>
+    <v-list two-line style="background-color: #facea7ff;">
       <v-list-item
         v-for="group in groupedData"
         :key="group.id"

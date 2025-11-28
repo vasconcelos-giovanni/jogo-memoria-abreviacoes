@@ -1,5 +1,5 @@
 <template>
-  <article class="pa-4">
+  <article class="pa-4" style="background-color: #eed6c1 !important;">
     <header>
       <h1>Jogo da Memória de Abreviações</h1>
     </header>
@@ -10,7 +10,7 @@
         abreviações comuns em português entre os séculos XVI a XIX.
       </p>
       <p>
-        Clique em "Iniciar Jogo" para começar a jogar. Combine as cartas com as
+        Combine as cartas com as
         abreviações corretas para ganhar pontos!
       </p>
       <MyCards/>
@@ -30,3 +30,11 @@
 import MyCards from '@/components/MyCards.vue'
 import WordList from '@/components/WordList.vue'
 </script>
+
+
+
+<style scoped>
+body {
+  background-color: #eed6c1 !important;
+}
+</style>
