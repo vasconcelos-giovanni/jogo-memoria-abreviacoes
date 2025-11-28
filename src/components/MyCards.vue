@@ -39,6 +39,9 @@
 <script setup lang="ts">
 import data from '@/data/data'
 import { ref, computed, watch } from 'vue'
+import { useDisplay } from 'vuetify'
+
+const { smAndDown } = useDisplay()
 
 function randomizeArrayOrders<T>(array: T[]): T[] {
   return array
@@ -65,6 +68,9 @@ watch(turned, () => {
 })
 
 const cardsDisabled = ref(false)
+const timeout = computed<int>(() => {
+  return smAndDown.value ? 5000 : 3000
+})
 
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
 function resetNotMatched(): void {
@@ -84,8 +90,8 @@ function resetNotMatched(): void {
       { cardsDisabled.value = false }
 
       turned.value = turned.value.filter(index => matched.value.includes(index));
-      (btnToggle.value as { updateMandatory?: () => void } )?.updateMandatory?.()
-    }, 3000)
+      (btnToggle.value as unknown)?.updateMandatory()
+    }, timeout.value)
   }
 
 }
