@@ -16,7 +16,6 @@
       <MyCards/>
     </section>
     <section class="mt-8">
-      <h2>Lista de Abreviações</h2>
       <WordList/>
     </section>
 
