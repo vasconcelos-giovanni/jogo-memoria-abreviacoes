@@ -3,6 +3,10 @@
     Parabéns! Você encontrou todos os pares!
   </v-snackbar>
 
+  <v-snackbar v-model="gameRestarted" close-on-content-click location="bottom" color="warning" elevation="2">
+    Jogo reiniciado.
+  </v-snackbar>
+
   <v-btn-toggle
     multiple
     tile
@@ -100,9 +104,12 @@ function win(): boolean {
   return matched.value.length === randomizedData.value.length
 }
 
+const gameRestarted = ref(false)
+
 function restart(): void {
-  randomizedData.value = randomizeArrayOrders(randomizedData.value)
+  randomizedData.value = randomizeArrayOrders(randomizedData.value);
+  gameRestarted.value = true;
   turned.value = [];
-  (btnToggle.value as { updateMandatory?: () => void } )?.updateMandatory?.()
+  (btnToggle.value as { updateMandatory?: () => void } )?.updateMandatory?.();
 }
 </script>
