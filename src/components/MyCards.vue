@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar v-if="win()" :model-value="true" location="bottom" color="#c49002" elevation="2">
+  <v-snackbar v-if="!win()" :model-value="true" location="bottom" color="success" elevation="2">
     Parabéns! Você encontrou todos os pares!
   </v-snackbar>
 
@@ -17,8 +17,8 @@
         :key="index"
         :disabled="matched.includes(index)"
         class="ma-2"
-        color="#13243e"
-        base-color="#c49002"
+        color="success"
+        base-color="primary"
         width="10rem"
         height="5rem"
         style="text-transform: none;"
@@ -32,7 +32,7 @@
     <p>
       <span class="font-weight-bold">Pontuação:</span> {{ score ?? 0 }}
     </p>
-    <v-btn @click="restart" color="#e3805f" class="ma-2" text="Reiniciar" prepend-icon="mdi-restart"/>
+    <v-btn @click="restart" color="error" rounded="0" class="ma-2" text="Reiniciar" prepend-icon="mdi-restart"/>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <article class="pa-4" style="background-color: #eed6c1 !important;">
+  <article class="pa-4 background" >
     <header>
       <h1>Jogo da Memória de Abreviações</h1>
     </header>
@@ -30,11 +30,3 @@
 import MyCards from '@/components/MyCards.vue'
 import WordList from '@/components/WordList.vue'
 </script>
-
-
-
-<style scoped>
-body {
-  background-color: #eed6c1 !important;
-}
-</style>
