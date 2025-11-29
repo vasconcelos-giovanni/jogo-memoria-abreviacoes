@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar v-if="!win()" :model-value="true" location="bottom" color="success" elevation="2">
+  <v-snackbar v-if="win()" :model-value="true" location="bottom" color="success" elevation="2">
     Parabéns! Você encontrou todos os pares!
   </v-snackbar>
 
