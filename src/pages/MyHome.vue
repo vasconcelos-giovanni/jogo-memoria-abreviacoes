@@ -21,7 +21,7 @@
     </section>
 
     <footer class="mt-8 text-center">
-      <p>Desenvolvido por <span class="font-weight-bold">Giovanni Vasconcelos de Medeiros</span> e <span class="font-weight-bold">Adeilma Maria de Vasconcelos</span>.</p>
+      <p>Desenvolvido por <span class="font-weight-bold">Giovanni Vasconcelos de Medeiros</span> e <span class="font-weight-bold">Adeilma Maria Vasconcelos de Medeiros</span>.</p>
     </footer>
   </article>
 </template>
