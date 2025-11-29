@@ -68,7 +68,7 @@ watch(turned, () => {
 })
 
 const cardsDisabled = ref(false)
-const timeout = computed<int>(() => {
+const timeout = computed<number>(() => {
   return smAndDown.value ? 5000 : 3000
 })
 
