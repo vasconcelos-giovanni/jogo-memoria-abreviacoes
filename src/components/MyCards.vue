@@ -90,7 +90,7 @@ function resetNotMatched(): void {
       { cardsDisabled.value = false }
 
       turned.value = turned.value.filter(index => matched.value.includes(index));
-      (btnToggle.value as unknown)?.updateMandatory()
+      (btnToggle.value as { updateMandatory?: () => void } )?.updateMandatory?.()
     }, timeout.value)
   }
 
